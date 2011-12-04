@@ -1,0 +1,26 @@
+{
+  "author": "David Guttman <david@davidguttman.com> (http://davidguttman.com)",
+  "name": "jscoolkit",
+  "description": "Quick way to play with cool visualizations in the browser",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "~0.4.2"
+  },
+  "dependencies": {
+    "async":          ">= 0.0",
+    "file":           ">= 0.0",
+    "coffee-script":  ">= 0.0",
+    "underscore":     ">= 0.0",
+    "optimist":       ">= 0.0",
+    "express":        ">= 0.0"
+  },
+  "devDependencies": {
+
+  },
+  "bin": {
+    "jscoolkit": "./bin/jscoolkit"
+  }
+}
