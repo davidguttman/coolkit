@@ -1,0 +1,13 @@
+{
+  "vendor": {
+    "noload": [
+      "LAB.min.js"
+    ],
+    "order": [
+      "jquery-1.6.4.js",
+      "underscore-1.2.1.js"
+    ]
+  },
+  "app": {},
+  "config": {}
+}

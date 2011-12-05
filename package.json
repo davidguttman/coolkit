@@ -15,7 +15,8 @@
     "coffee-script":  ">= 0.0",
     "underscore":     ">= 0.0",
     "optimist":       ">= 0.0",
-    "express":        ">= 0.0"
+    "express":        ">= 0.0",
+    "glob":           ">= 0.0"
   },
   "devDependencies": {
 
