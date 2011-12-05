@@ -20,14 +20,16 @@ class JSCoolkit
       version: "0.0.1"
       private: true
       dependencies:
-        express: ">= 0.0"
-        'coffee-script': ">= 0.0"
+        express: ">= 0"
+        underscore: '>= 0'
+        'coffee-script': ">= 0"
 
     
   new: (callback) ->
     templatePath = path.join module.id, '/../../template'
     
-    console.log "@options.appPath", @options.appPath
+    helpers.log "[JSCoolkit]: Creating new project in #{@options.appPath}... "
+    
     path.exists @options.appPath, (exists) =>
       if exists
         helpers.logError "[JSCoolkit]: can\'t create project -- directory \"#{@options.appPath}\" already exists"

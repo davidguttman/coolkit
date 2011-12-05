@@ -1,6 +1,5 @@
 _ = require 'underscore'
 fs = require 'fs'
-glob = require 'glob'
 express = require 'express'
 
 labify = (js_dir, config) ->
@@ -9,17 +8,12 @@ labify = (js_dir, config) ->
 
   loader = ''
 
-  # file_list = fs.readdirSync (__dirname + 'public' + file_prefix + '**/*.js')
-  # file_list = glob.globSync (__dirname + 'public' + file_prefix + '**/*.js'), "GLOB_STAR"
-  file_list = glob.globSync (__dirname + '/public' + file_prefix + '**/*.js'), glob.GLOB_STAR
-
-  console.log "file_list", file_list
+  file_list = _.filter (fs.readdirSync (__dirname + '/public' + file_prefix)), (filename) ->
+    filename.match /\.js$/
 
   files = _.map file_list, (filename) ->
-    console.log "filename", filename
     regex = new RegExp "^.*#{'public' + file_prefix}"
     filename = filename.replace regex, ''
-    console.log "filename", filename
     return filename
 
   if config?
