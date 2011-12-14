@@ -1,7 +1,10 @@
 (function() {
   var fs, labify, _;
+
   _ = require('underscore');
+
   fs = require('fs');
+
   labify = function(js_dir, config) {
     var file_list, file_prefix, files, js_prefix, load_path, loader;
     js_prefix = '/js/';
@@ -41,5 +44,7 @@
     });
     return loader += '.wait()';
   };
+
   exports.labify = labify;
+
 }).call(this);

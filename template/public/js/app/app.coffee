@@ -1,6 +1,11 @@
-class window.App extends Backbone.Raphael
+class window.App extends Backbone.P5
   setup: ->
-    console.log "setup"
+    @p5.size $(window).width(), $(window).height()
   
   draw: ->
-    # console.log "new Date().valueof", new Date().valueof
+    
+  mouseMoved: ->
+    console.log "Mouse Moved: ", @p5.mouseX, @p5.mouseY
+    
+  mouseClicked: ->
+    console.log "Mouse Clicked: ", @p5.mouseX, @p5.mouseY
