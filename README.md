@@ -1,13 +1,13 @@
-# JSCoolkit #
+# Coolkit #
 
 A fast and easy to get up and going with browser-based visualizations.
 
 ## Installation ##
 
-    npm install -g jscoolkit
+    npm install -g coolkit
 
 ## Use ##
 
-    jscoolkit awesome_project_name
+    coolkit awesome_project_name
     
     

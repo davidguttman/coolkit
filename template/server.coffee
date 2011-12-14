@@ -27,4 +27,4 @@ port = process.env.PORT or 3000
 
 app.listen port
 
-console.log "JSCoolkit Server running at http://localhost:#{port}/"
+console.log "Coolkit Server running at http://localhost:#{port}/"

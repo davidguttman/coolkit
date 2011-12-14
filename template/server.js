@@ -31,6 +31,6 @@
 
   app.listen(port);
 
-  console.log("JSCoolkit Server running at http://localhost:" + port + "/");
+  console.log("Coolkit Server running at http://localhost:" + port + "/");
 
 }).call(this);
