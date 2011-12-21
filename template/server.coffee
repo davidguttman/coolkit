@@ -16,7 +16,6 @@ app.get '/loader.js', (req, res) ->
   loader = '$LAB'
   
   loader += labify 'vendor', lab_config.vendor
-  loader += labify 'config', lab_config.config
   loader += labify 'app', lab_config.app
   
   loader += ".script('/js/main.js');"

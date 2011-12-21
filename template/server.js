@@ -21,7 +21,6 @@
     lab_config = JSON.parse(fs.readFileSync(__dirname + '/config/lab.json'));
     loader = '$LAB';
     loader += labify('vendor', lab_config.vendor);
-    loader += labify('config', lab_config.config);
     loader += labify('app', lab_config.app);
     loader += ".script('/js/main.js');";
     return res.send(loader);

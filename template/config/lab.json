@@ -5,7 +5,8 @@
     ],
     "order": [
       "jquery-1.6.4.js",
-      "underscore-1.2.1.js"
+      "underscore-1.2.1.js",
+      "backbone-0.5.3.js"
     ]
   },
   "app": {},
