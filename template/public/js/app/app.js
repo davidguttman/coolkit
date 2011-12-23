@@ -3,24 +3,25 @@
 
   window.App = (function() {
 
-    __extends(App, Backbone.P5);
+    __extends(App, BackboneShims.Processing);
 
     function App() {
       App.__super__.constructor.apply(this, arguments);
     }
 
     App.prototype.setup = function() {
-      return this.p5.size($(window).width(), $(window).height());
+      this.size($(window).width(), $(window).height());
+      return this.background(0);
     };
 
     App.prototype.draw = function() {};
 
     App.prototype.mouseMoved = function() {
-      return console.log("Mouse Moved: ", this.p5.mouseX, this.p5.mouseY);
+      return console.log("Mouse Moved: ", this.mouseX(), this.mouseY());
     };
 
     App.prototype.mouseClicked = function() {
-      return console.log("Mouse Clicked: ", this.p5.mouseX, this.p5.mouseY);
+      return console.log("Mouse Clicked: ", this.mouseX(), this.mouseY());
     };
 
     return App;

@@ -1,37 +1,56 @@
 (function() {
+  var BackboneP5, _ref;
   var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
-  Backbone.P5 = (function() {
+  BackboneP5 = (function() {
 
-    __extends(P5, Backbone.View);
+    __extends(BackboneP5, Backbone.View);
 
-    function P5() {
-      P5.__super__.constructor.apply(this, arguments);
+    function BackboneP5() {
+      BackboneP5.__super__.constructor.apply(this, arguments);
     }
 
-    P5.prototype.initialize = function() {
+    BackboneP5.prototype.initialize = function() {
       _.bindAll(this);
       this.canvas = $('<canvas />');
       ($(this.el)).append(this.canvas);
       return new Processing(this.canvas[0], this.init_p5);
     };
 
-    P5.prototype.init_p5 = function(p5) {
+    BackboneP5.prototype.init_p5 = function(p5) {
       this.link_methods(p5);
       return this.p5 = p5;
     };
 
-    P5.prototype.link_methods = function(p5) {
-      p5.setup = this.setup;
+    BackboneP5.prototype.link_methods = function(p5) {
+      var self;
       p5.draw = this.draw;
+      p5.setup = this.setup;
       p5.mouseMoved = this.mouseMoved;
       p5.mouseClicked = this.mouseClicked;
       p5.mouseDragged = this.mouseDragged;
+      p5.keyPressed = this.keyPressed;
+      p5.keyReleased = this.keyReleased;
+      p5.keyTyped = this.keyTyped;
+      self = this;
+      _.each(p5, function(value, name) {
+        if (_.isFunction(value)) {
+          return self[name] = p5[name];
+        } else {
+          return self[name] = function() {
+            return p5[name];
+          };
+        }
+      });
       return p5;
     };
 
-    return P5;
+    return BackboneP5;
 
   })();
+
+  if ((_ref = window.BackboneShims) == null) window.BackboneShims = {};
+
+  BackboneShims.Processing = BackboneP5;
 
 }).call(this);

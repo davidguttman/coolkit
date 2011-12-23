@@ -1,11 +1,12 @@
-class window.App extends Backbone.P5
+class window.App extends BackboneShims.Processing
   setup: ->
-    @p5.size $(window).width(), $(window).height()
+    @size $(window).width(), $(window).height()
+    @background 0
   
   draw: ->
     
   mouseMoved: ->
-    console.log "Mouse Moved: ", @p5.mouseX, @p5.mouseY
+    console.log "Mouse Moved: ", @mouseX(), @mouseY()
     
   mouseClicked: ->
-    console.log "Mouse Clicked: ", @p5.mouseX, @p5.mouseY
+    console.log "Mouse Clicked: ", @mouseX(), @mouseY()
