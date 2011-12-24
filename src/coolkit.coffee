@@ -1,13 +1,14 @@
-fs = require 'fs'
-path = require 'path'
-exec = (require 'child_process').exec
-util = require 'util'
+fs        = require 'fs'
+path      = require 'path'
+exec      = (require 'child_process').exec
+util      = require 'util'
 
-_ = require 'underscore'
-fileUtil = require 'file'
-argv = (require 'optimist').argv
+_         = require 'underscore'
+async     = require 'async'
+fileUtil  = require 'file'
+argv      = (require 'optimist').argv
 
-helpers = require './helpers'
+helpers   = require './helpers'
 
 
 class Coolkit
