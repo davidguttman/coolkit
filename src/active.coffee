@@ -19,10 +19,16 @@ active = ->
     proc.on 'exit', (status) -> process.exit(1) if status isnt 0
     proc
 
-  cake = runCommand 'cake', 'active'
+  cake_path = "#{process.cwd()}/node_modules/coffee-script/bin/cake"
   
-  process.on 'exit', ->
-    cake.kill()
+  path.exists cake_path, (exists) ->
+    if exists
+      cake = runCommand cake_path, 'active'
+  
+      process.on 'exit', ->
+        cake.kill()
+    else
+      console.log "Cake not found. Run from a Coolkit project directory."
   
   
   

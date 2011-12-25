@@ -1,6 +1,6 @@
 (function() {
-  var active, exec, fork, path, spawn, util, _ref,
-    __slice = Array.prototype.slice;
+  var active, exec, fork, path, spawn, util, _ref;
+  var __slice = Array.prototype.slice;
 
   _ref = require('child_process'), spawn = _ref.spawn, exec = _ref.exec, fork = _ref.fork;
 
@@ -9,7 +9,7 @@
   path = require('path');
 
   active = function() {
-    var cake, runCommand;
+    var cake_path, runCommand;
     runCommand = function() {
       var args, name, proc;
       name = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
@@ -31,9 +31,17 @@
       });
       return proc;
     };
-    cake = runCommand('cake', 'active');
-    return process.on('exit', function() {
-      return cake.kill();
+    cake_path = "" + (process.cwd()) + "/node_modules/coffee-script/bin/cake";
+    return path.exists(cake_path, function(exists) {
+      var cake;
+      if (exists) {
+        cake = runCommand(cake_path, 'active');
+        return process.on('exit', function() {
+          return cake.kill();
+        });
+      } else {
+        return console.log("Cake not found. Run from a Coolkit project directory.");
+      }
     });
   };
 

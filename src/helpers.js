@@ -1,9 +1,6 @@
 (function() {
-  var EventEmitter, async, capitalize, colorize, colors, exec, extend, fileUtil, formatDate, fs, getColor, name, notifiers, pad, path, spawn, transform, util, walkTree, _, _fn, _ref,
-    __hasProp = Object.prototype.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; },
-    __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
-    __slice = Array.prototype.slice;
+  var EventEmitter, async, capitalize, colorize, colors, exec, extend, fileUtil, formatDate, fs, getColor, name, notifiers, pad, path, spawn, transform, util, walkTree, _, _fn, _ref;
+  var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; }, __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (__hasProp.call(this, i) && this[i] === item) return i; } return -1; }, __slice = Array.prototype.slice;
 
   fs = require('fs');
 
@@ -96,9 +93,9 @@
     });
   };
 
-  exports.Watcher = (function(_super) {
+  exports.Watcher = (function() {
 
-    __extends(Watcher, _super);
+    __extends(Watcher, EventEmitter);
 
     Watcher.prototype.invalid = /^(\.|#)/;
 
@@ -112,8 +109,8 @@
     };
 
     Watcher.prototype._watch = function(item, callback) {
-      var basename, parent,
-        _this = this;
+      var basename, parent;
+      var _this = this;
       parent = this._getWatchedDir(path.dirname(item));
       basename = path.basename(item);
       if (__indexOf.call(parent, basename) >= 0) return;
@@ -129,8 +126,8 @@
     };
 
     Watcher.prototype._handleFile = function(file) {
-      var emit,
-        _this = this;
+      var emit;
+      var _this = this;
       emit = function(file) {
         return _this.emit('change', file);
       };
@@ -139,8 +136,8 @@
     };
 
     Watcher.prototype._handleDir = function(directory) {
-      var read,
-        _this = this;
+      var read;
+      var _this = this;
       read = function(directory) {
         return fs.readdir(directory, function(error, current) {
           var file, previous, _i, _j, _len, _len2, _results;
@@ -212,7 +209,7 @@
 
     return Watcher;
 
-  })(EventEmitter);
+  })();
 
   exports.filterFiles = function(files, sourcePath) {
     return files.filter(function(filename) {

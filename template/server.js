@@ -1,9 +1,7 @@
 (function() {
-  var activeScripts, active_reload, app, express, fs, labify, port, _, _base, _ref;
+  var activeScripts, active_reload, app, express, fs, labify, port, _, _base;
 
-  if ((_ref = (_base = process.env).NODE_ENV) == null) {
-    _base.NODE_ENV = 'development';
-  }
+  if ((_base = process.env).NODE_ENV == null) _base.NODE_ENV = 'development';
 
   _ = require('underscore');
 
@@ -29,7 +27,7 @@
       loader += ".script('/js/main.js');";
       fs.writeFile(__dirname + '/public/js/loader.js', loader);
       if (process.env.activeReload != null) {
-        loader += "$LAB.script('/socket.io/socket.io.js').wait(function(){        var socket = io.connect('http://localhost');        socket.on('message', function(m) {          if (m.name === 'coffee') {            location.reload();          }        });      })";
+        loader += "$LAB.script('/socket.io/socket.io.js').wait(function(){        var socket = io.connect('http://localhost');        socket.on('message', function(m) {          if (m.source === 'compiler') {            location.reload();          }        });      })";
       }
       return res.send(loader);
     });
@@ -63,7 +61,7 @@
     });
     return process.on('message', function(m) {
       var key, value, _results;
-      if (m.name === 'coffee' && m.type === 'stdout') {
+      if (m.source === 'compiler' && m.type === 'stdout') {
         _results = [];
         for (key in sockets) {
           value = sockets[key];

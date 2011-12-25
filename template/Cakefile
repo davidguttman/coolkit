@@ -1,5 +1,6 @@
-{spawn, exec, fork} = require 'child_process'
-util = require 'util'
+{spawn, exec, fork}   = require 'child_process'
+util                  = require 'util'
+path                  = require 'path'
 
 task 'active', 'Watch source files, build JS, and reload browser', (options) ->
   server = fork (__dirname + '/server.js'), null,
@@ -13,7 +14,7 @@ task 'active', 'Watch source files, build JS, and reload browser', (options) ->
       message = buffer.toString()
       console.log message
       server.send 
-        name: name
+        source: 'compiler'
         type: 'stderr'
         message: message    
 
@@ -21,15 +22,21 @@ task 'active', 'Watch source files, build JS, and reload browser', (options) ->
       message = buffer.toString()
       console.log message
       server.send 
-        name: name
+        source: 'compiler'
         type: 'stdout'
         message: message
         
     proc.on 'exit', (status) -> process.exit(1) if status isnt 0
     proc
   
-  compiler = runCommand 'coffee', '-wc', '.'
-  
-  process.on 'exit', ->
-    compiler.kill()
-    server.kill()
+  coffee_path = "#{process.cwd()}/node_modules/coffee-script/bin/coffee"
+
+  path.exists coffee_path, (exists) ->
+    if exists
+      compiler = runCommand coffee_path, '-wc', './public'
+
+      process.on 'exit', ->
+        compiler.kill()
+        server.kill()
+    else
+      console.log "Coffee not found. Run from a Coolkit project directory."

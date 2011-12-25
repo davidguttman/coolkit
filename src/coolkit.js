@@ -46,8 +46,8 @@
     }
 
     Coolkit.prototype["new"] = function() {
-      var methods,
-        _this = this;
+      var methods;
+      var _this = this;
       methods = [this.createProjectDir, this.installDependencies, this.initGit];
       async.waterfall(methods, function(error) {
         if (error != null) {

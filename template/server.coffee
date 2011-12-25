@@ -29,7 +29,7 @@ activeScripts = (req, res) ->
 
         var socket = io.connect('http://localhost');
         socket.on('message', function(m) {
-          if (m.name === 'coffee') {
+          if (m.source === 'compiler') {
             location.reload();
           }
         });
@@ -64,7 +64,7 @@ active_reload = ->
     delete sockets[socket.id]
 
   process.on 'message', (m) ->
-    if m.name is 'coffee' and m.type is 'stdout'
+    if m.source is 'compiler' and m.type is 'stdout'
       for key, value of sockets
         value.emit 'message', m
 
