@@ -20,13 +20,9 @@ activeScripts = (req, res) ->
   
     loader += labify 'vendor', lab_config.vendor
     loader += labify 'app', lab_config.app
-  
     loader += ".script('/js/main.js');"
     
-    console.log "process.env.activeReload", process.env.activeReload
-    
     if process.env.activeReload?
-      console.log "adding to loader..."
       loader += "$LAB.script('/socket.io/socket.io.js').wait(function(){
 
         var socket = io.connect('http://localhost');
@@ -69,11 +65,11 @@ active_reload = ->
 
   process.on 'message', (m) ->
     if m.name is 'coffee' and m.type is 'stdout'
-      console.log "broadcasting", m.message
       for key, value of sockets
         value.emit 'message', m
 
 active_reload() if process.env.activeReload?
 
-  
-console.log "Coolkit Server running at http://localhost:#{port}/"
+_.delay ->
+  console.log "\nCoolkit Server running at http://localhost:#{port}/"
+, 20

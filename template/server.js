@@ -64,7 +64,6 @@
     return process.on('message', function(m) {
       var key, value, _results;
       if (m.name === 'coffee' && m.type === 'stdout') {
-        console.log("broadcasting", m.message);
         _results = [];
         for (key in sockets) {
           value = sockets[key];
@@ -77,6 +76,8 @@
 
   if (process.env.activeReload != null) active_reload();
 
-  console.log("Coolkit Server running at http://localhost:" + port + "/");
+  _.delay(function() {
+    return console.log("\nCoolkit Server running at http://localhost:" + port + "/");
+  }, 20);
 
 }).call(this);
