@@ -1,0 +1,30 @@
+{spawn, exec, fork} = require 'child_process'
+util = require 'util'
+
+task 'watch', 'Watch source files, build JS, and reload browser', (options) ->
+  server = fork (__dirname + '/server.js'), null,
+    env:
+      activeReload: true
+
+  runCommand = (name, args...) ->
+    proc =           spawn name, args
+
+    proc.stderr.on   'data', (buffer) -> 
+      message = buffer.toString()
+      console.log message
+      server.send 
+        name: name
+        type: 'stderr'
+        message: message    
+
+    proc.stdout.on   'data', (buffer) -> 
+      message = buffer.toString()
+      console.log message
+      server.send 
+        name: name
+        type: 'stdout'
+        message: message
+        
+    proc.on 'exit', (status) -> process.exit(1) if status isnt 0
+  
+  runCommand 'coffee', '-wc', '.'

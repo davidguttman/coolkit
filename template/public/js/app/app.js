@@ -11,18 +11,14 @@
 
     App.prototype.setup = function() {
       this.size($(window).width(), $(window).height());
-      return this.background(0);
+      return this.background(20);
     };
 
     App.prototype.draw = function() {};
 
-    App.prototype.mouseMoved = function() {
-      return console.log("Mouse Moved: ", this.mouseX(), this.mouseY());
-    };
+    App.prototype.mouseMoved = function() {};
 
-    App.prototype.mouseClicked = function() {
-      return console.log("Mouse Clicked: ", this.mouseX(), this.mouseY());
-    };
+    App.prototype.mouseClicked = function() {};
 
     return App;
 

@@ -30,6 +30,7 @@ class Coolkit
         express: ">= 0"
         underscore: '>= 0'
         'coffee-script': ">= 0"
+        "socket.io": ">= 0"
 
     
   new: ->
