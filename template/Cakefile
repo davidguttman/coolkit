@@ -1,7 +1,7 @@
 {spawn, exec, fork} = require 'child_process'
 util = require 'util'
 
-task 'watch', 'Watch source files, build JS, and reload browser', (options) ->
+task 'active', 'Watch source files, build JS, and reload browser', (options) ->
   server = fork (__dirname + '/server.js'), null,
     env:
       activeReload: true
@@ -26,5 +26,10 @@ task 'watch', 'Watch source files, build JS, and reload browser', (options) ->
         message: message
         
     proc.on 'exit', (status) -> process.exit(1) if status isnt 0
+    proc
   
-  runCommand 'coffee', '-wc', '.'
+  compiler = runCommand 'coffee', '-wc', '.'
+  
+  process.on 'exit', ->
+    compiler.kill()
+    server.kill()

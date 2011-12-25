@@ -9,6 +9,7 @@ fileUtil  = require 'file'
 argv      = (require 'optimist').argv
 
 helpers   = require './helpers'
+active    = require './active'
 
 
 class Coolkit
@@ -87,7 +88,8 @@ class Coolkit
 
 command_opts =
   new: 
-    help: "Creates a new Coolkit project with the name you specify. Example:\n\tcoolkit new project_name"
+    help: "Creates a new Coolkit project with the name you specify. Example:\n\t
+    $ coolkit new project_name"
     
     execute: (project_name) ->
       if project_name?
@@ -97,7 +99,17 @@ command_opts =
         ck.new()
       else
        helpers.logError '[Coolkit]: Please specify a project/directory name.'
-  
+  active:
+    help: "Starts 'active' mode. Coolkit will auto-compile CoffeeScript, start a webserver, and reload the browser when changes are detected. Example:\n\t
+    $ coolkit active"
+    
+    execute: ->
+      path.exists './server.js', (exists) =>
+        if exists
+          helpers.log "[Coolkit]: Starting 'Active' Mode..."
+          active()
+        else
+          helpers.logError "[Coolkit]: Error: './server.js' not found. Is this a Coolkit project directory?"
     
 
 exports.run = ->
