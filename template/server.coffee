@@ -22,6 +22,8 @@ activeScripts = (req, res) ->
     loader += labify 'app', lab_config.app
     loader += ".script('/js/main.js');"
     
+    fs.writeFile (__dirname + '/public/js/loader.js'), loader
+    
     if process.env.activeReload?
       loader += "$LAB.script('/socket.io/socket.io.js').wait(function(){
 
@@ -32,8 +34,6 @@ activeScripts = (req, res) ->
           }
         });
       })"
-  
-    fs.writeFile (__dirname + '/public/js/loader.js'), loader
   
     res.send loader
   

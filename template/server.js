@@ -27,10 +27,10 @@
       loader += labify('vendor', lab_config.vendor);
       loader += labify('app', lab_config.app);
       loader += ".script('/js/main.js');";
+      fs.writeFile(__dirname + '/public/js/loader.js', loader);
       if (process.env.activeReload != null) {
         loader += "$LAB.script('/socket.io/socket.io.js').wait(function(){        var socket = io.connect('http://localhost');        socket.on('message', function(m) {          if (m.name === 'coffee') {            location.reload();          }        });      })";
       }
-      fs.writeFile(__dirname + '/public/js/loader.js', loader);
       return res.send(loader);
     });
   };
