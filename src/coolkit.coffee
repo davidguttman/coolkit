@@ -14,6 +14,7 @@ helpers   = require './helpers'
 class Coolkit
   defaultConfig:
     appPath: './'
+    templatePath: path.join module.id, '/../../template'
   
   constructor: (options) ->
     _.bindAll this
@@ -32,35 +33,56 @@ class Coolkit
 
     
   new: ->
-    templatePath = path.join module.id, '/../../template'
+    methods = [
+      @createProjectDir
+      @installDependencies
+      @initGit
+    ]
     
+    async.waterfall methods, (error) =>
+      if error?
+        helpers.logError error
+      else
+        helpers.log "[Coolkit]: Project \"#{@options.project_name}\" created successfully"
+    
+    this
+  
+  createProjectDir: (callback) ->
     helpers.log "[Coolkit]: Creating new project in #{@options.appPath}... "
     
     path.exists @options.appPath, (exists) =>
       if exists
-        helpers.logError "[Coolkit]: can\'t create project -- directory \"#{@options.appPath}\" already exists"
-        return
+        error = "[Coolkit]: Can't create project -- directory \"#{@options.appPath}\" already exists"
+        callback error
+      else
     
-      fileUtil.mkdirsSync @options.appPath, 0755
+        fileUtil.mkdirsSync @options.appPath, 0755
       
-      fs.writeFileSync @options.appPath + '/package.json', (JSON.stringify @package, null, 2)
+        fs.writeFileSync @options.appPath + '/package.json', (JSON.stringify @package, null, 2)
         
-      helpers.recursiveCopy templatePath, @options.appPath, @installDependencies
-
-    this
+        helpers.recursiveCopy @options.templatePath, @options.appPath, (error) ->
+          callback error
   
-  installDependencies: ->
+  initGit: (callback) ->
+    helpers.log "[Git]: initializing repo..."
+    exec 'git init', {cwd: @options.appPath}, (error, stdout, stderr) =>
+      console.log stdout
+      
+      if stderr? and stderr.length > 0
+        helpers.logError "[Git]: \n" + stderr
+
+      callback error
+    
+  
+  installDependencies: (callback) ->
     helpers.log "[NPM]: installing dependencies...\n"
     exec 'npm install', {cwd: @options.appPath}, (error, stdout, stderr) =>
       console.log stdout
       
       if stderr? and stderr.length > 0
         helpers.logError "[NPM]: \n" + stderr
-      
-      if error?
-        helpers.logError "[NPM]: \n" + error
-      else
-        helpers.log "[Coolkit]: created new project \"#{@options.project_name}\"\n"
+
+      callback error
 
 command_opts =
   new: 
