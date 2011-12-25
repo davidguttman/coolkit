@@ -2,12 +2,12 @@
   "author": "David Guttman <david@davidguttman.com> (http://davidguttman.com)",
   "name": "coolkit",
   "description": "Quick way to play with cool visualizations in the browser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "url": "git://github.com/davidguttman/coolkit.git"
   },
   "engines": {
-    "node": "~0.4.2"
+    "node": ">= 0.4.2"
   },
   "dependencies": {
     "async":          ">= 0.1.15",
