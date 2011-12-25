@@ -1,9 +1,14 @@
-#!/usr/bin/env coffee
+#!/usr/bin/env node
+ 
+(function() {
+  var fs, path, src;
 
-path = require 'path'
-fs = require 'fs'
+  path = require('path');
 
-src = path.join path.dirname(fs.realpathSync(__filename)), '../src'
+  fs = require('fs');
 
+  src = path.join(path.dirname(fs.realpathSync(__filename)), '../src');
 
-(require src + '/coolkit').run()
+  (require(src + '/coolkit')).run();
+
+}).call(this);
