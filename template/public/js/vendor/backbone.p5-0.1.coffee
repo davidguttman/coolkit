@@ -28,7 +28,8 @@ class BackboneP5 extends Backbone.View
     
     _.each p5, (value, name) ->
       if _.isFunction value
-        self[name] = p5[name]
+        self[name] = ->
+          p5[name] arguments...
       else
         self[name] = ->
           p5[name]

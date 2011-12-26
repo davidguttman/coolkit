@@ -1,10 +1,11 @@
 (function() {
-  var BackboneP5, _ref;
-  var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+  var BackboneP5,
+    __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
-  BackboneP5 = (function() {
+  BackboneP5 = (function(_super) {
 
-    __extends(BackboneP5, Backbone.View);
+    __extends(BackboneP5, _super);
 
     function BackboneP5() {
       BackboneP5.__super__.constructor.apply(this, arguments);
@@ -35,7 +36,9 @@
       self = this;
       _.each(p5, function(value, name) {
         if (_.isFunction(value)) {
-          return self[name] = p5[name];
+          return self[name] = function() {
+            return p5[name].apply(p5, arguments);
+          };
         } else {
           return self[name] = function() {
             return p5[name];
@@ -47,9 +50,9 @@
 
     return BackboneP5;
 
-  })();
+  })(Backbone.View);
 
-  if ((_ref = window.BackboneShims) == null) window.BackboneShims = {};
+  if (window.BackboneShims == null) window.BackboneShims = {};
 
   BackboneShims.Processing = BackboneP5;
 
