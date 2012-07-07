@@ -31,7 +31,7 @@ task 'active', 'Watch source files, build JS, and reload browser', (options) ->
   
   coffee_path = "#{process.cwd()}/node_modules/coffee-script/bin/coffee"
 
-  path.exists coffee_path, (exists) ->
+  fs.exists coffee_path, (exists) ->
     if exists
       compiler = runCommand coffee_path, '-wc', './public'
 

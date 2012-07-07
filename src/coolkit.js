@@ -62,7 +62,7 @@
     Coolkit.prototype.createProjectDir = function(callback) {
       var _this = this;
       helpers.log("[Coolkit]: Creating new project in " + this.options.appPath + "... ");
-      return path.exists(this.options.appPath, function(exists) {
+      return fs.exists(this.options.appPath, function(exists) {
         var error;
         if (exists) {
           error = "[Coolkit]: Can't create project -- directory \"" + _this.options.appPath + "\" already exists";
@@ -129,7 +129,7 @@
       help: "Starts 'active' mode. Coolkit will auto-compile CoffeeScript, start a webserver, and reload the browser when changes are detected. Example:\n\t    $ coolkit active",
       execute: function() {
         var _this = this;
-        return path.exists('./server.js', function(exists) {
+        return fs.exists('./server.js', function(exists) {
           if (exists) {
             helpers.log("[Coolkit]: Starting 'Active' Mode...");
             return active();
