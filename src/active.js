@@ -32,7 +32,7 @@
       return proc;
     };
     cake_path = "" + (process.cwd()) + "/node_modules/coffee-script/bin/cake";
-    return path.exists(cake_path, function(exists) {
+    return fs.exists(cake_path, function(exists) {
       var cake;
       if (exists) {
         cake = runCommand(cake_path, 'active');
